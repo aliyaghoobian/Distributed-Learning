@@ -44,9 +44,9 @@ In this approach, we aim to use federated learning to train one global model for
 
 - **FedProx**: It is an extension of the FedAvg algorithm, designed to improve the robustness and efficiency of federated learning, especially in heterogeneous environments (non-IID). FedProx adds a regularization term to the local loss (optimization problem) of each client. The addition of the $\frac{\mu}{2} \|w_k - w\|^2$ term encourages the local models to stay closer to the global model, mitigating the effects of statistical heterogeneity across clients. The local update rule in FedProx can be formulated as follows:
 
-   $
+   $$
    \min_{w_k} F_k(w_k) + \frac{\mu}{2} \|w_k - w\|^2
-   $
+   $$
 
 - **FedADAM**: An adaptation of the Adam optimization algorithm for federated learning environments, which aims to improve the convergence and stability of training across a distributed network of clients. The summary of this algorithm is shown in the following figure. More details are available in [2].
 

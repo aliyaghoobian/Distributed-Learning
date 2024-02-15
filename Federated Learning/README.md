@@ -44,9 +44,7 @@ In this approach, we aim to use federated learning to train one global model for
 
 - **FedProx**: It is an extension of the FedAvg algorithm, designed to improve the robustness and efficiency of federated learning, especially in heterogeneous environments (non-IID). FedProx adds a regularization term to the local loss (optimization problem) of each client. The addition of the $\frac{\mu}{2} \|w_k - w\|^2$ term encourages the local models to stay closer to the global model, mitigating the effects of statistical heterogeneity across clients. The local update rule in FedProx can be formulated as follows:
 
-   $$
-   \min_{w_k} F_k(w_k) + \frac{\mu}{2} \|w_k - w\|^2
-   $$
+   $$\min_{w_k} F_k(w_k) + \frac{\mu}{2} \|w_k - w\|^2$$
 
 - **FedADAM**: An adaptation of the Adam optimization algorithm for federated learning environments, which aims to improve the convergence and stability of training across a distributed network of clients. The summary of this algorithm is shown in the following figure. More details are available in [2].
 
@@ -54,9 +52,9 @@ In this approach, we aim to use federated learning to train one global model for
 
 - **FGSM**: Fast Gradient Sign Method is a technique for adversarial attacks and for implementing defense mechanisms. The basic idea behind FGSM is to create perturbed inputs $x'$ from original inputs $x$ by applying a perturbation $η$ in the direction of the sign of the gradient of the loss function $L$ with respect to $x$.
 
-  $
+  ```math
   \text{{Adversarial example: } } x_{\text{{adv}}} = x + \epsilon \cdot \text{{sign}}(\nabla_x J(\theta, x, y))
-  $
+  ```
 
 - **PGD**: Projected Gradient Descent attack is an iterative adversarial attack method that enhances the effectiveness of generating adversarial examples compared to the one-step FGSM.
 

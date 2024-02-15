@@ -14,17 +14,15 @@ Q-learning is a model-free reinforcement learning algorithm to learn the value o
 
 Q-value Update:
 
-$ Q(s, a) \leftarrow (1 - \alpha) Q(s, a) + \alpha [r + \gamma \max_{a'} Q(s', a') ] $
+$$Q(s, a) \leftarrow (1 - \alpha) Q(s, a) + \alpha [r + \gamma \max_{a'} Q(s', a') ]$$
 
 $\epsilon$-Greedy:
 
-$
-\pi(a|s) = 
+$$\pi(a|s) = 
 \begin{cases} 
 	1 - \epsilon + \frac{\epsilon}{|\mathcal{A}(s)|} & \text{if } a = \arg\max_{a'} Q(s, a') \\
 	\frac{\epsilon}{|\mathcal{A}(s)|} & \text{otherwise}
-\end{cases}
-$
+\end{cases}$$
 
 ![Q-learning](./pics/q.png)
 
@@ -32,13 +30,9 @@ $
 ## Deep Actor-Critic
 it combines the ideas of value-based and policy-based RL approaches, leveraging neural networks to approximate both policy (actor) and value functions (critic). The actor decides which action to take given the current state. The critic assesses the quality of the actions taken by the actor by predicting the expected returns. The critic updates its value function based on the temporal difference (TD) error and its goal is to minimize this error. The actor updates its policy in the direction suggested by the critic.
 
-$
-L_{\text{actor}} = -\log(\pi(a|s)) \cdot \text{TD\_error}
-$
+$$L_{\text{actor}} = -\log(\pi(a|s)) \cdot \text{TD\_error}$$
 
-$
-L_{\text{critic}} = \left( r + \gamma \cdot \text{critic}(\text{next\_state}) - \text{critic}(\text{state}) \right)^2
-$
+$$L_{\text{critic}} = \left( r + \gamma \cdot \text{critic}(\text{next\_state}) - \text{critic}(\text{state}) \right)^2$$
 
 ![Deep actor-critic](./pics/ac.png)
 
@@ -48,18 +42,14 @@ In this scenario, each UE is an RL agent that acts in parallel. For more informa
 ## Minimax Q learning
 This algorithm designed to handle competitive environments. It adapts the Q-learning framework to consider the worst-case scenario (minimizing opponent) at each step, leading to a strategy that performs well under the assumption that the opponent is playing optimally.
 
-$
-V_1(s) \leftarrow \max_{\pi \in \Pi(A_1)} \min_{a_2 \in A_2} \sum_{a_1 \in A_1} \pi(a_1) Q_1(s, (a_1, a_2))
-$
+$$V_1(s) \leftarrow \max_{\pi \in \Pi(A_1)} \min_{a_2 \in A_2} \sum_{a_1 \in A_1} \pi(a_1) Q_1(s, (a_1, a_2))$$
 
 ![Minimax Q learning](./pics/minmax2.png)
 
 ## Belief based
 One alternative is to explicitly maintain a belief regarding the likelihood of the other agents’ policies, and update V based the induced expectation of the Q values. F could be pdf estimator such as Histogram (frequency) and KNN.
 
-$
-V_i(s) \leftarrow \max_{a_i} \sum_{a_{-i} \in A_{-i}} P(s, a_{-i}) Q_i(s, (a_i, a_{-i})).
-$
+$$V_i(s) \leftarrow \max_{a_i} \sum_{a_{-i} \in A_{-i}} P(s, a_{-i}) Q_i(s, (a_i, a_{-i}))$$
 
 ![Distributed Q-learning](./pics/belief2.png)
 
@@ -70,19 +60,15 @@ of the agents provably converge to an optimal joint policy with respect to globa
 
 The local Q-values are updated only when the update leads to an increase in the Q-value.
 
-$
-Q_{i, k+1}(x_k, u_{i,k}) = \max \left( Q_{i,k}(x_k, u_{i,k}), r_{k+1} + \gamma \max_{u_i} Q_{i,k}(x_{k+1}, u_i) \right).
-$
+$$Q_{i, k+1}(x_k, u_{i,k}) = \max \left( Q_{i,k}(x_k, u_{i,k}), r_{k+1} + \gamma \max_{u_i} Q_{i,k}(x_{k+1}, u_i) \right)$$
 
 The local policy is updated only if the update leads to an improvement in the Q-values.
 
-$
-\bar{h}_{i,k+1}(x_k) = 
+$$\bar{h}_{i,k+1}(x_k) = 
 \begin{cases}
 	u_{i,k} & \text{if } \max_{u_i} Q_{i,k+1}(x_k, u_i) > \max_{u_i} Q_{i,k}(x_k, u_i), \\
 	\bar{h}_{i,k}(x_k) & \text{otherwise}.
-\end{cases}
-$
+\end{cases}$$
 
 ![Distributed Q-learning](./pics/dq.png)
 

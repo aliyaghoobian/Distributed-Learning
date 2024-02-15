@@ -38,9 +38,7 @@ In this approach, we aim to use federated learning to train one global model for
 
 - **FedAvg**: The server aggregates the local updates (weights) to update the global model based on the weighted average.
 
-  $
-  W_{\text{global}} = \frac{\sum_{k=1}^{K} n_k W_k}{\sum_{k=1}^{K} n_k}
-  $
+  $$W_{\text{global}} = \frac{\sum_{k=1}^{K} n_k W_k}{\sum_{k=1}^{K} n_k}$$
 
 - **FedProx**: It is an extension of the FedAvg algorithm, designed to improve the robustness and efficiency of federated learning, especially in heterogeneous environments (non-IID). FedProx adds a regularization term to the local loss (optimization problem) of each client. The addition of the $\frac{\mu}{2} \|w_k - w\|^2$ term encourages the local models to stay closer to the global model, mitigating the effects of statistical heterogeneity across clients. The local update rule in FedProx can be formulated as follows:
 
@@ -52,15 +50,11 @@ In this approach, we aim to use federated learning to train one global model for
 
 - **FGSM**: Fast Gradient Sign Method is a technique for adversarial attacks and for implementing defense mechanisms. The basic idea behind FGSM is to create perturbed inputs $x'$ from original inputs $x$ by applying a perturbation $η$ in the direction of the sign of the gradient of the loss function $L$ with respect to $x$.
 
-  ```math
-  \text{{Adversarial example: } } x_{\text{{adv}}} = x + \epsilon \cdot \text{{sign}}(\nabla_x J(\theta, x, y))
-  ```
+  $$\text{{Adversarial example: } } x_{\text{{adv}}} = x + \epsilon \cdot \text{{sign}}(\nabla_x J(\theta, x, y))$$
 
 - **PGD**: Projected Gradient Descent attack is an iterative adversarial attack method that enhances the effectiveness of generating adversarial examples compared to the one-step FGSM.
 
-   $
-   \text{{Adversarial example:} } x_{\text{{adv}}}^{(t+1)} = \text{{Clip}}_{x, \epsilon}\left( x_{\text{{adv}}}^{(t)} + \alpha \cdot \text{{sign}}(\nabla_x J(\theta, x_{\text{{adv}}}^{(t)}, y)) \right)
-   $
+   $$\text{{Adversarial example:} } x_{\text{{adv}}}^{(t+1)} = \text{{Clip}}_{x, \epsilon}\left( x_{\text{{adv}}}^{(t)} + \alpha \cdot \text{{sign}}(\nabla_x J(\theta, x_{\text{{adv}}}^{(t)}, y)) \right)$$
 
 The results show that global loss decreased faster in FedADAM. More results such as the impact of FGSM and PGD attacks can be found in the code.
 
@@ -76,16 +70,14 @@ In this scenario, we suppose there is no central server to aggregate model updat
 
 We use the $A$ adjacency matrix to determine cell neighbours.
 
-$
-A =
+$$A =
 \begin{bmatrix}
 	1 & 0 & 1 & 0 & 1 \\
 	0 & 1 & 0 & 1 & 1 \\
 	1 & 0 & 1 & 1 & 0 \\
 	0 & 1 & 1 & 1 & 0 \\
 	1 & 1 & 0 & 0 & 1
-\end{bmatrix}
-$
+\end{bmatrix}$$
 
 We use three client selection methods in this implementation.
 
@@ -93,19 +85,15 @@ We use three client selection methods in this implementation.
 
 2. **PoW**:  Power-of-Choice client selection strategy is a biasing of the client selection towards clients with higher local losses. For more information [3]
 
-   $
-   S^{(t+1)} = \arg\max_{x_k \in \mathcal{K}} F_k(\tilde{W}^{(t)})
-   $
+   $$S^{(t+1)} = \arg\max_{x_k \in \mathcal{K}} F_k(\tilde{W}^{(t)})$$
 
 3. **DivFL**: Diverse Client Selection is for Federated Learning via Submodular Maximization. Specifically, each client selects a subset of its neighbors to maximize a submodular facility location function, which is defined within the context of gradient space. For more information [4]
 
 In this implementation, we use Targeted FGSM and Target PGD attacks. More details about these attacks and another proposed attack are available in [5].
 
-$
-	x_{\text{{adv,dta}}} = x_0 - \epsilon \cdot \text{{sign}}(\nabla_x L(\theta, x, y + \alpha \cdot \text{{sign}}(\nabla_x L(\theta, x, y))))
+$$x_{\text{{adv,dta}}} = x_0 - \epsilon \cdot \text{{sign}}(\nabla_x L(\theta, x, y + \alpha \cdot \text{{sign}}(\nabla_x L(\theta, x, y))))
 	\newline
-	x^{n}_{\text{{adv}}} = \Pi_{\mathcal{X}}(x^{n-1} - \epsilon \cdot \nabla_x L(\theta, x^{n-1}, y))
-$
+	x^{n}_{\text{{adv}}} = \Pi_{\mathcal{X}}(x^{n-1} - \epsilon \cdot \nabla_x L(\theta, x^{n-1}, y))$$
 
 All graphs are available in code and you can find the impact of client selection, attack, and robustness algorithms in code. The two following tables show the comprehensive overview of their outcomes.
 

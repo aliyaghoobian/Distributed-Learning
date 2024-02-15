@@ -91,9 +91,9 @@ We use three client selection methods in this implementation.
 
 In this implementation, we use Targeted FGSM and Target PGD attacks. More details about these attacks and another proposed attack are available in [5].
 
-$$x_{\text{{adv,dta}}} = x_0 - \epsilon \cdot \text{{sign}}(\nabla_x L(\theta, x, y + \alpha \cdot \text{{sign}}(\nabla_x L(\theta, x, y))))
-	\newline
-	x^{n}_{\text{{adv}}} = \Pi_{\mathcal{X}}(x^{n-1} - \epsilon \cdot \nabla_x L(\theta, x^{n-1}, y))$$
+$$x_{\text{{adv,dta}}} = x_0 - \epsilon \cdot \text{{sign}}(\nabla_x L(\theta, x, y + \alpha \cdot \text{{sign}}(\nabla_x L(\theta, x, y))))$$
+
+$$x^{n}_{\text{{adv}}} = \Pi_{\mathcal{X}}(x^{n-1} - \epsilon \cdot \nabla_x L(\theta, x^{n-1}, y))$$
 
 All graphs are available in code and you can find the impact of client selection, attack, and robustness algorithms in code. The two following tables show the comprehensive overview of their outcomes.
 

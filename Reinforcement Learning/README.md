@@ -30,7 +30,7 @@ $$\pi(a|s) =
 ## Deep Actor-Critic
 it combines the ideas of value-based and policy-based RL approaches, leveraging neural networks to approximate both policy (actor) and value functions (critic). The actor decides which action to take given the current state. The critic assesses the quality of the actions taken by the actor by predicting the expected returns. The critic updates its value function based on the temporal difference (TD) error and its goal is to minimize this error. The actor updates its policy in the direction suggested by the critic.
 
-$$L_{\text{actor}} = -\log(\pi(a|s)) \cdot \text{TD\_error}$$
+$$L_{\text{actor}} = -\log(\pi(a|s)) \cdot \text{TD_error}$$
 
 $$L_{\text{critic}} = \left( r + \gamma \cdot \text{critic}(\text{next\_state}) - \text{critic}(\text{state}) \right)^2$$
 
